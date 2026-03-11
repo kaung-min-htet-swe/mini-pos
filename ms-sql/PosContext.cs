@@ -142,7 +142,7 @@ public partial class PosContext : DbContext
 
             entity.HasIndex(e => e.Name, "IX_Products_Name");
 
-            entity.HasIndex(e => e.Sku, "UQ__Products__CA1ECF0DDF49614F").IsUnique();
+            entity.HasIndex(e => e.Sku, "UQ__Products__CA1ECF0DDF49614F").IsUnique().HasFilter("([DeletedAt] IS NULL)");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newsequentialid())");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(sysutcdatetime())");

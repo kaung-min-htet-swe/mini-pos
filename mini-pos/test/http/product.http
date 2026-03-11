@@ -1,0 +1,91 @@
+@mini_pos_HostAddress = http://localhost:5120
+
+GET {{mini_pos_HostAddress}}/api/categories
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    if (response.body && response.body["items"].length > 0) {
+        client.global.set("categoryId", response.body["items"][0].id);
+    }
+%}
+
+###
+
+GET {{mini_pos_HostAddress}}/api/products
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    if (response.body && response.body["items"].length > 0) {
+        client.global.set("productId", response.body["items"][0].id);
+    } 
+ %}
+
+###
+
+GET {{mini_pos_HostAddress}}/api/products/{{productId}}
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+ %}
+
+###
+
+POST {{mini_pos_HostAddress}}/api/products
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Apple",
+  "price": 120,
+  "sku": "Apple_125",
+  "stockQuantity": 100,
+  "categoryId": "{{categoryId}}"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+ %}
+
+###
+
+PATCH {{mini_pos_HostAddress}}/api/products/{{productId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Apple",
+  "price": 125,
+  "sku": "Apple_125",
+  "stockQuantity": 100,
+  "categoryId": "{{categoryId}}"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 204, "Response status is not 204");
+    }); 
+ %}
+
+###
+
+DELETE {{mini_pos_HostAddress}}/api/products/{{productId}}
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 204, "Response status is not 204");
+    });
+ %}

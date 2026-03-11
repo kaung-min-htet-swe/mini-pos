@@ -48,11 +48,15 @@ public class CategoryService(PosContext db) : ICategoryService
     {
         try
         {
-            var category = await db.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            var category = await db.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
             if (category == null)
                 return new NotFound<CategoryResponseDto>("$Category with {id} not found");
 
-            var categoryResponseDto = new CategoryResponseDto(category.Id, category.Name, category.Description);
+            var products = category.Products
+                .Select(p => new ProductResponseDto(p.Id, p.Name, p.Price, p.Sku, p.StockQuantity)).ToList();
+            
+            var categoryResponseDto =
+                new CategoryResponseDto(category.Id, category.Name, category.Description, products);
             return new Ok<CategoryResponseDto>("Category retrieved successfully", categoryResponseDto);
         }
         catch (Exception e)

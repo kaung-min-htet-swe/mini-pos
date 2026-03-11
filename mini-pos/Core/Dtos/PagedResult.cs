@@ -2,15 +2,15 @@ namespace mini_pos.Core.Dtos;
 
 public class PagedResult<T>
 {
-    public PagedResult(List<T> items, int totalCount, int pageNumber, int limit)
+    public PagedResult(List<T> data, int totalCount, int pageNumber, int limit)
     {
-        Items = items;
+        Data = data;
         TotalCount = totalCount;
         PageNumber = pageNumber;
         Limit = limit;
     }
 
-    public List<T> Items { get; }
+    public List<T> Data { get; }
     public int TotalCount { get; }
     public int PageNumber { get; }
     public int Limit { get; }

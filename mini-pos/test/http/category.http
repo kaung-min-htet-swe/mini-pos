@@ -1,0 +1,49 @@
+@mini_pos_HostAddress = http://localhost:5120
+
+GET {{mini_pos_HostAddress}}/api/categories
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    if (response.body && response.body["items"].length > 0) {
+        client.global.set("categoryId", response.body["items"][0].id);
+    } 
+ %}
+
+###
+
+GET {{mini_pos_HostAddress}}/api/categories/{{categoryId}}
+Accept: application/json
+
+###
+
+POST {{mini_pos_HostAddress}}/api/categories
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Juice",
+  "description": "They are juice."
+}
+
+> {% 
+    client.test("Product deleted successfully", () => {
+        client.assert(response.status === 201, "Response status is not 201")
+    })
+ %}
+
+###
+
+DELETE {{mini_pos_HostAddress}}/api/categories/{{categoryId}}
+Accept: application/json
+
+> {%
+    client.test("Product deleted successfully", () => {
+        client.assert(response.status === 204, "Response status is not 204")
+    })
+ %}
+
+###
