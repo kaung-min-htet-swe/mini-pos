@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using mini_pos.Products.Services;
 using ms_sql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,10 @@ builder.Services.AddDbContext<PosContext>(options =>
     ServiceLifetime.Transient
 );
 
+builder.Services.AddControllers();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -22,9 +26,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 app.MapGet("/",
     context => context.Response.WriteAsJsonAsync(new { IsSuccess = true, Message = "Welcome to Mini POS!" })
 ).WithName("Home").WithOpenApi();
-
 
 app.Run();

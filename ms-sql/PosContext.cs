@@ -50,6 +50,8 @@ public partial class PosContext : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
+            entity.HasQueryFilter(e => e.DeletedAt == null);
+            
             entity.HasKey(e => e.Id).HasName("PK__Categori__3214EC071B4B77BC");
 
             entity.HasIndex(e => e.Id, "IX_Categories_Active").HasFilter("([DeletedAt] IS NULL)");
@@ -79,6 +81,8 @@ public partial class PosContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
+            entity.HasQueryFilter(e => e.DeletedAt == null);
+            
             entity.HasKey(e => e.Id).HasName("PK__Orders__3214EC074E28C14D");
 
             entity.HasIndex(e => e.CustomerId, "IX_Orders_CustomerId");
@@ -103,6 +107,8 @@ public partial class PosContext : DbContext
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
+            entity.HasQueryFilter(e => e.DeletedAt == null);
+            
             entity.HasKey(e => e.Id).HasName("PK__OrderIte__3214EC07B51366B4");
 
             entity.HasIndex(e => e.OrderId, "IX_OrderItems_OrderId");
@@ -126,6 +132,8 @@ public partial class PosContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
+            entity.HasQueryFilter(e => e.DeletedAt == null);
+            
             entity.HasKey(e => e.Id).HasName("PK__Products__3214EC07D91059C7");
 
             entity.HasIndex(e => e.CategoryId, "IX_Products_Active").HasFilter("([DeletedAt] IS NULL)");
@@ -152,6 +160,8 @@ public partial class PosContext : DbContext
 
         modelBuilder.Entity<ProductImage>(entity =>
         {
+            entity.HasQueryFilter(e => e.DeletedAt == null);
+
             entity.HasKey(e => e.Id).HasName("PK__ProductI__3214EC070CB3942C");
 
             entity.HasIndex(e => e.ProductId, "IX_ProductImages_Active").HasFilter("([DeletedAt] IS NULL)");
@@ -166,7 +176,7 @@ public partial class PosContext : DbContext
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_ProductImages_Products");
         });
-
+        
         OnModelCreatingPartial(modelBuilder);
     }
 
