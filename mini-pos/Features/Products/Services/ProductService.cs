@@ -3,10 +3,10 @@ using mini_pos.Core.Dtos;
 using mini_pos.Core.ServiceResponse;
 using mini_pos.Core.ServiceResponse.ServiceFailure;
 using mini_pos.Core.ServiceResponse.ServiceSuccess;
-using mini_pos.Products.Dtos;
+using mini_pos.Features.Products.Dtos;
 using ms_sql;
 
-namespace mini_pos.Products.Services;
+namespace mini_pos.Features.Products.Services;
 
 public class ProductService(PosContext db) : IProductService
 {

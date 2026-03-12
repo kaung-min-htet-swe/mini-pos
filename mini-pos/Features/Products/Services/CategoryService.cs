@@ -3,10 +3,10 @@ using mini_pos.Core.Dtos;
 using mini_pos.Core.ServiceResponse;
 using mini_pos.Core.ServiceResponse.ServiceFailure;
 using mini_pos.Core.ServiceResponse.ServiceSuccess;
-using mini_pos.Products.Dtos;
+using mini_pos.Features.Products.Dtos;
 using ms_sql;
 
-namespace mini_pos.Products.Services;
+namespace mini_pos.Features.Products.Services;
 
 public class CategoryService(PosContext db) : ICategoryService
 {
@@ -54,7 +54,7 @@ public class CategoryService(PosContext db) : ICategoryService
 
             var products = category.Products
                 .Select(p => new ProductResponseDto(p.Id, p.Name, p.Price, p.Sku, p.StockQuantity)).ToList();
-            
+
             var categoryResponseDto =
                 new CategoryResponseDto(category.Id, category.Name, category.Description, products);
             return new Ok<CategoryResponseDto>("Category retrieved successfully", categoryResponseDto);

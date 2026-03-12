@@ -1,9 +1,9 @@
-namespace mini_pos.Products.Dtos;
+namespace mini_pos.Features.Products.Dtos;
 
 public record ProductResponseDto(
     Guid Id,
     string Name,
-    Decimal Price,
+    decimal Price,
     string Sku,
     int StockQuantity
 );

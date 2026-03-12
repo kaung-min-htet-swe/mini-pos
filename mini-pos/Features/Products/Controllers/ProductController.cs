@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using mini_pos.Products.Dtos;
-using mini_pos.Products.Services;
+using mini_pos.Features.Products.Dtos;
+using mini_pos.Features.Products.Services;
 
 namespace mini_pos.Products.Controllers;
 
