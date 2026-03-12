@@ -18,7 +18,7 @@ internal class MerchantService(PosContext db) : IMerchantService
     {
         try
         {
-            var skip = filter.PageNumber * filter.Limit;
+            var skip = (filter.PageNumber-1) * filter.Limit;
             var take = filter.Limit;
 
             var query = db.Admins.AsNoTracking().AsQueryable();

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using mini_pos.Features.Orders.Services;
 using mini_pos.Features.Products.Services;
+using mini_pos.Features.Users.Services;
 using ms_sql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IMerchantService, MerchantService>();
 
 var app = builder.Build();
 

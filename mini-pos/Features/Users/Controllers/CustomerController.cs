@@ -12,7 +12,7 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> List([FromQuery] CustomerFilter filter)
     {
         var result = await customerService.List(filter);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -21,7 +21,7 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await customerService.GetById(id);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -30,7 +30,7 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> Create([FromBody] CustomerCreateDto customer)
     {
         var result = await customerService.Create(customer);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -39,7 +39,7 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> Update(Guid id, [FromBody] CustomerCreateDto customer)
     {
         var result = await customerService.Update(id, customer);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -48,7 +48,7 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await customerService.Delete(id);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }

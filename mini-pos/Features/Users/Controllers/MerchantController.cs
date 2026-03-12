@@ -12,7 +12,7 @@ public class MerchantController(IMerchantService merchantService):ControllerBase
     public async Task<IActionResult> List([FromQuery] MerchantFilter filter)
     {
         var result = await merchantService.List(filter);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -21,7 +21,7 @@ public class MerchantController(IMerchantService merchantService):ControllerBase
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await merchantService.GetById(id);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -30,7 +30,7 @@ public class MerchantController(IMerchantService merchantService):ControllerBase
     public async Task<IActionResult> Create([FromBody] MerchantCreateDto merchant)
     {
         var result = await merchantService.Create(merchant);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -39,7 +39,7 @@ public class MerchantController(IMerchantService merchantService):ControllerBase
     public async Task<IActionResult> Update(Guid id, [FromBody] MerchantCreateDto merchant)
     {
         var result = await merchantService.Update(id, merchant);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }
@@ -48,7 +48,7 @@ public class MerchantController(IMerchantService merchantService):ControllerBase
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await merchantService.Delete(id);
-        return result.IsSuccess()
+        return !result.IsSuccess()
             ? StatusCode(result.StatusCode(), new { message = result.Message() })
             : StatusCode(result.StatusCode(), result.Data());
     }

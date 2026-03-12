@@ -14,7 +14,7 @@ public class CustomerService(PosContext db) : ICustomerService
     {
         try
         {
-            var skip = filter.PageNumber * filter.Limit;
+            var skip = (filter.PageNumber-1) * filter.Limit;
             var take = filter.Limit;
             var query = db.Customers.AsNoTracking().AsQueryable();
             if (filter.SearchTerm != null)

@@ -67,11 +67,15 @@ public class OrderService(PosContext db) : IOrderService
                     )
                 ).ToList();
 
+            var adminDto = new AdminDto(order.ProcessedBy.Id, order.ProcessedBy.Username);
+            var customerDto = new CustomerDto(order.Customer.Id, order.Customer.Name);
             var orderDto = new OrderDto(
                 order.Id,
                 order.OrderDate,
                 order.TotalAmount,
-                orderItems
+                orderItems,
+                adminDto,
+                customerDto
             );
 
             return new Ok<OrderDto>("Order retrieved successfully", orderDto);
